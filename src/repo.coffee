@@ -7,6 +7,7 @@ Tree   = require './tree'
 Diff   = require './diff'
 Tag    = require './tag'
 Status = require './status'
+StatusAdv = require './status_adv'
 
 {Ref, Head} = require './ref'
 
@@ -275,6 +276,15 @@ module.exports = class Repo
   status: (options, callback) ->
     [options, callback] = [callback, options] if !callback;
     return Status(this, options, callback)
+
+  # Public: Get the repository's status (`git status`).
+  #         Advanced version, opposed to status --porcelain 
+  #
+  # callback - Receives `(err, status)`
+  #
+  statusAdv: (options, callback) ->
+    [options, callback] = [callback, options] if !callback;
+    return StatusAdv(this, options, callback)
 
   # Public: Show information about files in the index and the
   #         working tree.
