@@ -8,6 +8,7 @@ Diff   = require './diff'
 Tag    = require './tag'
 Status = require './status'
 StatusAdv = require './status_adv'
+RemoteSimple = require './remote'
 
 {Ref, Head} = require './ref'
 
@@ -164,6 +165,14 @@ module.exports = class Repo
     , 'binary'
 
 
+  # Public: Get the repository's remote names (`git remote`).
+  #
+  # callback - Receives `(err, remotes)`
+  #
+  remoteNames: (options, callback) ->
+    [options, callback] = [callback, options] if !callback;
+    return RemoteSimple(this, options, callback)
+
   # Public: Get the repository's remotes.
   #
   # callback - Receives `(err, remotes)`.
@@ -286,7 +295,7 @@ module.exports = class Repo
     return Status(this, options, callback)
 
   # Public: Get the repository's status (`git status`).
-  #         Advanced version, opposed to status --porcelain 
+  #         Advanced version, opposed to status --porcelain
   #
   # callback - Receives `(err, status)`
   #
