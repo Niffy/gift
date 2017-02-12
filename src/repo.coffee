@@ -9,6 +9,7 @@ Tag    = require './tag'
 Status = require './status'
 StatusAdv = require './status_adv'
 RemoteSimple = require './remote'
+RemoteBranches = require './remote_branches'
 
 {Ref, Head} = require './ref'
 
@@ -172,6 +173,13 @@ module.exports = class Repo
   remoteNames: (options, callback) ->
     [options, callback] = [callback, options] if !callback;
     return RemoteSimple(this, options, callback)
+
+  # Public: Get the repository's remote branches (`git branch -a`).
+  #
+  # callback - Receives `(err, remotes)`
+  #
+  remoteBranches: (options, callback) ->
+    return RemoteBranches(this, options, callback)
 
   # Public: Get the repository's remotes.
   #
