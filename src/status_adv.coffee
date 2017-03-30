@@ -16,14 +16,14 @@ S.Status = class Status
     @regBehind = new RegExp /Behind/gi
     @regDiverged = new RegExp /Diverged/gi
     @regUpToDate = new RegExp /up-to-date/gi
-    @regCommitCount = new RegExp /(?:by )(\w)(?: commit)/gi
+    @regCommitCount = new RegExp /(?:by )(\w{1,4})(?: commit)/gi
 
   getCommitCount: (line) ->
-    sub1 = line.match @regCommitCount
-    sub1 = sub1.toString().replace('by', '')
-    sub1 = sub1.replace('commit','')
-    sub1 = sub1.trim()
-    try 
+    try
+      sub1 = line.match @regCommitCount
+      sub1 = sub1.toString().replace('by', '')
+      sub1 = sub1.replace('commit','')
+      sub1 = sub1.trim()
       sub1 = parseInt sub1
     catch err
       console.log 'Opps err', err
