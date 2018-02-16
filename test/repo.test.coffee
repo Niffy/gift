@@ -12,7 +12,7 @@ Tag      = require '../src/tag'
 Status   = require '../src/status'
 
 {Ref, Head} = require '../src/ref'
-{exec}      = require 'child_process'
+exec        = require 'flex-exec'
 
 describe "Repo", ->
 
@@ -78,12 +78,14 @@ describe "Repo", ->
       remote = branch = ""
 
       before ->
-        sinon.stub repo, "git", (command, opts, args, callback) ->
+        sinon.stub repo, "git"
+        .callsFake (command, opts, args, callback) ->
           if command is "pull"
             remote = args[0]
             branch = args[1]
           callback? null
-        sinon.stub repo, "status", (callback) ->
+        sinon.stub repo, "status"
+        .callsFake (callback) ->
           callback? null, clean: no
 
       after ->
