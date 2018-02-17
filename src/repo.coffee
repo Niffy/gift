@@ -10,6 +10,7 @@ Status = require './status'
 StatusAdv = require './status_adv'
 RemoteSimple = require './remote'
 RemoteBranches = require './remote_branches'
+PushUpstream = require './push_upstream'
 
 {Ref, Head} = require './ref'
 
@@ -589,3 +590,10 @@ module.exports = class Repo
         lines.shift()
 
     return files
+
+  # Public: Set a branch upstream (`git push --set-upstream remote branch`).
+  #
+  # callback - Receives `(err, result)`
+  #
+  pushUpstream: (options, callback) ->
+    return PushUpstream(this, options, callback)
